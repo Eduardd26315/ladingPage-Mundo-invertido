@@ -5,6 +5,9 @@ window.onload = function() {
         body: document.body
     };
 
+    // Debugging info
+    console.log('[engine] loaded. button=', theme.button, 'audio=', theme.audio, 'body class=', theme.body.className);
+
     function switchTheme() {
         // Alterna as classes
         theme.body.classList.toggle('dark-theme');
@@ -23,8 +26,19 @@ window.onload = function() {
         }
     }
 
-    // Adiciona o listener diretamente ao botão
-    theme.button.addEventListener('click', switchTheme);
+    // Adiciona o listener diretamente ao botão (com fallback)
+    if (theme.button) {
+        theme.button.addEventListener('click', function(e) { console.log('[engine] switch button clicked'); switchTheme(e); });
+    } else {
+        console.warn('[engine] switch-theme-button não encontrado - adicionando listener global de fallback');
+        document.addEventListener('click', function(e) {
+            if (e.target && (e.target.id === 'switch-theme-button' || e.target.closest('#switch-theme-button'))) {
+                console.log('[engine] fallback detected click on switch-theme-button');
+                switchTheme();
+            }
+        });
+    }
+
     // Expõe a função globalmente para suportar onclick inline
     window.switchTheme = switchTheme;
     // Validação simples do formulário (sem envio via JS)
