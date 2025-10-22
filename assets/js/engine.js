@@ -25,6 +25,8 @@ window.onload = function() {
 
     // Adiciona o listener diretamente ao botão
     theme.button.addEventListener('click', switchTheme);
+    // Expõe a função globalmente para suportar onclick inline
+    window.switchTheme = switchTheme;
     // Validação simples do formulário (sem envio via JS)
     const form = document.getElementById('clubForm');
     if (form) {
