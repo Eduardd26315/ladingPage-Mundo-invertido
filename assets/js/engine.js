@@ -16,6 +16,11 @@ window.onload = function() {
         // Troca a música
         theme.audio.src = isDark ? 'assets/musics/inverted-world.mpeg' : 'assets/musics/normal-world.mpeg';
         theme.audio.play().catch(error => console.log('Erro ao tocar música:', error));
+        
+        // Atualiza o texto do botão
+        if (theme.button) {
+            theme.button.textContent = isDark ? 'Voltar ao Normal' : 'Inverter Mundos';
+        }
     }
 
     // Adiciona o listener diretamente ao botão
